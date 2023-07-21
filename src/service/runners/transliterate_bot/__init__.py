@@ -1,0 +1,1 @@
+from .transliterate_bot import TransliterateBotRunner
