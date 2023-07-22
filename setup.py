@@ -34,8 +34,9 @@ setup(
     packages=find_packages(include=['src', 'src.*']),
     install_requires=REQUIRED,
     extras_require=EXTRAS,
+    package_data={'src': ['service/runners/transliterate_bot/transliterate_bot.sh']},
     include_package_data=True,
     entry_points={
-        'console_scripts': ['web_server=src.demon:main']
+        'console_scripts': ['ci-demon=src.demon:main']
     },
 )
