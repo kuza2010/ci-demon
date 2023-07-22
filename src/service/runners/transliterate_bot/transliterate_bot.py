@@ -2,6 +2,8 @@ import os
 import subprocess
 import time
 
+from flask import current_app
+
 from src.service.runners import BaseRunner
 from src.service.runners.exception import RunnerException
 
@@ -23,12 +25,17 @@ class TransliterateBotRunner(BaseRunner):
         return self._full_path
 
     def do_run(self):
-        child_proc = subprocess.Popen(self.full_path, stdout=subprocess.PIPE)
+        child_proc = subprocess.Popen([
+            self.full_path,
+            current_app.config['TRANSLITERATE_BOT']['TG_TOKEN'],
+            current_app.config['TRANSLITERATE_BOT']['BOT_FOLDER'],
+            current_app.config['TRANSLITERATE_BOT']['MAIN_EXECUTABLE_FILE'],
+        ], stdout=subprocess.PIPE)
         try:
-            child_proc.wait(timeout=5)
+            child_proc.wait(timeout=10)
         except subprocess.TimeoutExpired:
             child_proc.kill()
-            raise RunnerException('Timeout excedeed')
+            raise RunnerException('Timeout exceeded')
 
         pid = self.__check_pid(child_proc)
 
@@ -38,11 +45,13 @@ class TransliterateBotRunner(BaseRunner):
 
         return pid
 
+    # block readline
     def __check_pid(self, proc):
         max_time = time.time() + 10
 
         while time.time() < max_time:
             line = proc.stdout.readline().decode("utf-8")
+            print(line)
             if line.startswith('MAIN_PID:'):
                 pid = int(line.replace('MAIN_PID:', ''))
                 # log.info(f'{self.name} started with pid: {pid}')
