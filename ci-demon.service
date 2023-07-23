@@ -1,0 +1,12 @@
+[Unit]
+Description=Deployment web server
+After=network-online.target
+
+[Service]
+Type=simple
+RestartSec=5
+#whereis ci-demon
+ExecStart=/home/kyza2010/.pyenv/shims/ci-demon <path to ci-demon config.json>
+
+[Install]
+WantedBy=multi-user.target
