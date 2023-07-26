@@ -51,3 +51,26 @@ ci-demon application service accept one necessary argument: [configuration file]
 ## Remove ci-demon
 
 To remove `ci-demon` just write: `pip uninstall ci-demon`
+
+## Start as a service
+
+To add `ci-demon` as a system service, do the following steps:
+
+```shell
+$ cd ci-demon
+$ sudo cp ci-demon.service /etc/systemd/system/ci-demon.service
+$ sudo systemctl daemon-reload
+$ sudo systemctl enable ci-demon.service
+$ sudo systemctl start ci-demon.service
+# check the status
+$ sudo systemctl status ci-demon.service
+```
+
+To remove `ci-demon`:
+
+```shell
+$ cd ~
+$ sudo systemctl disable ci-demon.service
+$ rm /etc/systemd/system/ci-demon.service
+$ sudo systemctl daemon-reload
+```

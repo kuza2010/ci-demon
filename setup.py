@@ -10,7 +10,7 @@ URL = 'https://github.com/kuza2010'
 EMAIL = 'kyza20106@yandex.ru'
 AUTHOR = 'Danilin Artyom'
 REQUIRES_PYTHON = '>=3.10.0'
-VERSION = '0.1.0'
+VERSION = '0.1.1'
 
 REQUIRED = [
     'flask==2.3.2',

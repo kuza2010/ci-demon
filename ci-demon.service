@@ -7,6 +7,8 @@ Type=simple
 RestartSec=5
 #whereis ci-demon
 ExecStart=/home/kyza2010/.pyenv/shims/ci-demon <path to ci-demon config.json>
+#uncomment the next line to execute start command as a user
+#User=<user>
 
 [Install]
 WantedBy=multi-user.target
